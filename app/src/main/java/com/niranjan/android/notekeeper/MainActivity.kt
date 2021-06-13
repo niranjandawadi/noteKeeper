@@ -1,18 +1,17 @@
 package com.niranjan.android.notekeeper
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.niranjan.android.notekeeper.databinding.ActivityMainBinding
+import com.niranjan.android.notekeeper.databinding.ContentMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var contentViewBinding: ContentMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,21 +19,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+        contentViewBinding = ContentMainBinding.inflate(layoutInflater)
+        setContentView(contentViewBinding.root)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        val dm = DataManager()
+        val adapterCourses =
+            ArrayAdapter<CourseInfo>(
+                this,
+                android.R.layout.simple_spinner_item,
+                dm.courses.values.toList()
+            )
+        adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+        contentViewBinding.spinnerCourses.adapter = adapterCourses
     }
 }
