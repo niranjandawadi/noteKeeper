@@ -27,6 +27,8 @@ class NoteListAcitivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        //Minor changes to verify github
+
     }
 
 }
