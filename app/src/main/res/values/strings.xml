@@ -12,4 +12,5 @@
     <string name="note_text">Note text</string>
     <string name="note_title">Note title</string>
     <string name="title_activity_note_list_acitivity">NoteListAcitivity</string>
+    <string name="title_activity_main2">MainActivity</string>
 </resources>
