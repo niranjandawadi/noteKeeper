@@ -25,6 +25,9 @@ object DataManager {
 
 
     private fun initializeNotes() {
-        
+        var note = courses["android_intents"]?.let { NoteInfo(it, "test", "testDetail")}
+        if (note != null) {
+            notes.add(note)
+        }
     }
 }
