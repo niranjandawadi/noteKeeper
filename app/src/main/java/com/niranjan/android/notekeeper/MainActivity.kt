@@ -44,5 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         val coursePosition = DataManager.courses.values.indexOf(note.course)
         binding.content.spinnerCourses.setSelection(coursePosition)
+        ahsgdha
     }
 }
