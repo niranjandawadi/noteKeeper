@@ -1,6 +1,8 @@
 package com.niranjan.android.notekeeper
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.niranjan.android.notekeeper.databinding.ActivityMainBinding
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         contentViewBinding = ContentMainBinding.inflate(layoutInflater)
         setContentView(contentViewBinding.root)
+        setSupportActionBar(contentViewBinding.toolbar)
+
 
         val adapterCourses =
             ArrayAdapter(
@@ -32,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         notePosition = intent.getIntExtra(Constants.EXTRA_NOTE_POSITION, Constants.POSITION_NOT_SET)
 
-        if (notePosition != Constants.POSITION_NOT_SET){
+        if (notePosition != Constants.POSITION_NOT_SET) {
             displayNote()
         }
     }
@@ -44,6 +48,26 @@ class MainActivity : AppCompatActivity() {
 
         val coursePosition = DataManager.courses.values.indexOf(note.course)
         binding.content.spinnerCourses.setSelection(coursePosition)
-        ahsgdha
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.actionSettings -> true
+            R.id.actionNext -> {
+                moveNext()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun moveNext() {
+        ++notePosition
+        displayNote()
     }
 }
