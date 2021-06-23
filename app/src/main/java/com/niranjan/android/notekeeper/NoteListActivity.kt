@@ -29,11 +29,16 @@ class NoteListActivity : AppCompatActivity() {
 
         binding.lvNotes.setOnItemClickListener { parent, view, position, id ->
             val activityIntent = Intent(this, MainActivity::class.java)
-            activityIntent.putExtra(Constants.EXTRA_NOTE_POSITION, position)
+            activityIntent.putExtra(Constants.NOTE_POSITION, position)
             startActivity(activityIntent)
         }
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (binding.lvNotes.adapter as ArrayAdapter<NoteInfo>).notifyDataSetChanged()
     }
 
 }
